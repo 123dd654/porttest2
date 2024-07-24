@@ -185,7 +185,8 @@ body {
     font-size: 16px;
     font-family: "AstroSpace", sans-serif;
     text-align: left;
-    padding: 6px 0;
+    margin-left: 4px;
+    margin-top: 2px;
   }
 
   td.today {
@@ -323,6 +324,10 @@ body {
 .flex {
   display: flex;
   height: 100%;
+}
+.fdc {
+  display: flex;
+  flex-direction: column;
 }
 .w40 {
   width: 40%;
