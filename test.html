@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      h4 {
+        text-shadow: 2px 2px 6px black;
+        margin-bottom: 40px;
+        color: white;
+      }
+
+      .info-box {
+        font-family: "VT323", monospace;
+        background: linear-gradient(
+          45deg,
+          hsl(0, 0%, 0%) 0%,
+          hsl(0, 0%, 12%) 100%
+        );
+        color: #8fa0c0;
+        text-shadow: 1px 1px 23px #8fa0c0;
+        font-size: 14px;
+        height: 35px;
+        width: auto;
+        overflow: hidden;
+        border-radius: 4px;
+        margin-bottom: 25px;
+        border: 1px solid black;
+        box-shadow: hsla(0, 0%, 32%, 1) 0 0px 0px 3px;
+      }
+
+      .info {
+        animation: scroll 15s linear infinite;
+      }
+
+      @keyframes scroll {
+        0% {
+          transform: translateX(50%);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+
+      .player {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 294px;
+        white-space: nowrap;
+        padding: 24px;
+        /* border-radius: 6px; */
+        /* box-shadow: inset hsla(0, 0%, 15%, 0.2) 0 0px 0px 3px;
+        background: linear-gradient(
+          260deg,
+          hsl(0, 0%, 60%) 0%,
+          hsl(0, 0%, 25%) 47%,
+          hsl(0, 0%, 30%) 100%
+        ); */
+        border: 2px solid black;
+        box-shadow: hsla(0, 0%, 32%, 1) 0 0px 0px 3px;
+      }
+
+      .btn-lg {
+        margin: 5px;
+        cursor: pointer;
+        border: 1px solid black;
+        box-shadow: inset hsla(0, 0%, 15%, 0.2) 0 0px 0px 3px;
+        background-color: rgba(55, 55, 55, 0.1);
+        color: white;
+      }
+
+      .btn-lg:active {
+        border: 1px solid #8fa0c0;
+        box-shadow: 1px 1px 12px #8fa0c0;
+        color: #8fa0c0;
+      }
+
+      .btn-lg:focus {
+        outline: none;
+      }
+
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+        color: inherit;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      :focus-visible {
+        outline: 2px solid rgb(147, 51, 234);
+        outline-offset: 4px;
+      }
+
+      .button-row {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .button {
+        font-size: 1rem;
+        border-radius: 99em;
+        padding: 0;
+        border: 0;
+        display: grid;
+        grid-template-columns: 1fr;
+        place-items: center;
+        cursor: pointer;
+        width: 3.5rem;
+        height: 2.5rem;
+        transition: color 0.15s ease, width 0.25s ease-out;
+        position: relative;
+        background-color: rgb(34, 35, 38);
+        box-shadow: 0 4px 8px 0 rgba(0 0 0 / 0.025);
+      }
+
+      .button--toggle.is-active {
+        border: 2px solid #8fa0c0; /* 활성 상태를 표시하는 스타일 */
+      }
+
+      .icon {
+        width: 24px;
+        height: 24px;
+      }
+
+      .button--play {
+        position: relative;
+      }
+
+      .button--play .ph-play,
+      .button--play .ph-pause {
+        grid-row-start: 1;
+        grid-column-start: 1;
+        transition: opacity 0.15s ease, transform 0.25s ease;
+      }
+
+      .button--play .ph-play {
+        opacity: 1;
+      }
+
+      .button--play .ph-pause {
+        opacity: 0;
+        transform: rotate(0);
+      }
+
+      .button--play.is-active .ph-play {
+        opacity: 0;
+        transform: rotate(180deg);
+      }
+
+      .button--play.is-active .ph-pause {
+        opacity: 1;
+        transform: rotate(180deg);
+      }
+
+      .button.is-active {
+        color: #8fa0c0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="player radial metal">
+      <h4>Seoyeon's Audio Player</h4>
+      <!-- <sub>Howler.js</sub> -->
+      <div class="info-box">
+        <p class="info" id="info"></p>
+      </div>
+      <div class="button-row">
+        <button class="button button--toggle btn-lg" id="shuffleBtn">
+          <i class="fas fa-random"></i>
+          <!-- Shuffle Icon -->
+        </button>
+        <button class="button btn-lg" id="skipBw">
+          <i class="fas fa-step-backward"></i>
+          <!-- Skip Back Icon -->
+        </button>
+        <button class="button button--toggle button--play btn-lg" id="playIt">
+          <i class="fas fa-play ph-play"></i>
+          <!-- Play Icon -->
+          <i class="fas fa-pause ph-pause" id="pauseIt"></i>
+          <!-- Pause Icon -->
+        </button>
+        <button class="button btn-lg" id="skipFw">
+          <i class="fas fa-step-forward"></i>
+          <!-- Skip Forward Icon -->
+        </button>
+        <button class="button button--toggle btn-lg" id="repeatBtn">
+          <i class="fas fa-sync-alt"></i>
+          <!-- Repeat Icon -->
+        </button>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+    <script>
+      let current = 0;
+      let sound = [];
+
+      sound[0] = new Howl({
+        src: ["http://asilencebroken.net/sounds/06 Traces of a Monster.mp3"],
+        preload: false,
+        html5: true,
+        onplay: function () {
+          document.getElementById("info").innerHTML =
+            "Asilence Broken - Traces of a Monster";
+        },
+        onend: function () {
+          nextSong();
+        },
+      });
+
+      sound[1] = new Howl({
+        src: ["http://asilencebroken.net/sounds/08%20Left%20Me%204%20Dead.mp3"],
+        preload: false,
+        html5: true,
+        onplay: function () {
+          document.getElementById("info").innerHTML =
+            "Asilence Broken - Left Me 4 Dead";
+        },
+        onend: function () {
+          nextSong();
+        },
+      });
+
+      sound[2] = new Howl({
+        src: ["http://asilencebroken.net/sounds/07%20Needed%20Questions.mp3"],
+        preload: false,
+        html5: true,
+        onplay: function () {
+          document.getElementById("info").innerHTML =
+            "Asilence Broken - Needed Questions";
+        },
+        onend: function () {
+          nextSong();
+        },
+      });
+
+      function nextSong() {
+        current++;
+        if (current >= sound.length) {
+          current = 0;
+        }
+        sound[current].play();
+        updatePlayPauseButton();
+      }
+
+      function lastSong() {
+        current--;
+        if (current < 0) {
+          current = sound.length - 1;
+        }
+        sound[current].play();
+        updatePlayPauseButton();
+      }
+
+      function updatePlayPauseButton() {
+        let playBtn = document.getElementById("playIt");
+        let pauseIcon = document.getElementById("pauseIt");
+        if (sound[current].playing()) {
+          playBtn.classList.add("is-active");
+          pauseIcon.style.display = "inline";
+        } else {
+          playBtn.classList.remove("is-active");
+          pauseIcon.style.display = "none";
+        }
+      }
+
+      document.getElementById("skipBw").addEventListener("click", function () {
+        sound[current].stop();
+        lastSong();
+      });
+
+      document.getElementById("playIt").addEventListener("click", function () {
+        if (sound[current].playing()) {
+          sound[current].pause();
+        } else {
+          sound[current].play();
+        }
+        updatePlayPauseButton();
+      });
+
+      document.getElementById("pauseIt").addEventListener("click", function () {
+        sound[current].pause();
+        updatePlayPauseButton();
+      });
+
+      document.getElementById("skipFw").addEventListener("click", function () {
+        sound[current].stop();
+        nextSong();
+      });
+
+      // const buttons = document.querySelectorAll(".button--toggle");
+
+      // for (let button of buttons) {
+      //   button.addEventListener("click", function () {
+      //     button.classList.toggle("is-active");
+      //   });
+      // }
+    </script>
+  </body>
+</html>

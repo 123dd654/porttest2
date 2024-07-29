@@ -7,6 +7,10 @@
 
     <link rel="stylesheet" href="assets/css/reset.css" />
     <link rel="stylesheet" href="assets/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
   </head>
 
   <body>
@@ -132,6 +136,76 @@
           </div>
           <div class="calendar"></div>
         </div>
+        <div class="box3">
+          <div class="btop bbom dotwrap">
+            <span class="dot left dotA"></span>
+            <span class="dot right"></span>
+            <span class="dot leftBot"></span>
+            <span class="dot rightBot dotA"></span>
+            <div class="first">
+              <span>section 02</span>
+              <p>let’s start musicplay</p>
+            </div>
+          </div>
+          <div class="player radial metal">
+            <h4>Seoyeon's Audio Player</h4>
+            <!-- <sub>Howler.js</sub> -->
+            <div class="info-box">
+              <p class="info" id="info"></p>
+            </div>
+            <div class="button-row">
+              <button class="button button--toggle btn-lg" id="shuffleBtn">
+                <i class="fas fa-random"></i>
+                <!-- Shuffle Icon -->
+              </button>
+              <button class="button btn-lg" id="skipBw">
+                <i class="fas fa-step-backward"></i>
+                <!-- Skip Back Icon -->
+              </button>
+              <button
+                class="button button--toggle button--play btn-lg"
+                id="playIt"
+              >
+                <i class="fas fa-play ph-play"></i>
+                <!-- Play Icon -->
+                <i class="fas fa-pause ph-pause" id="pauseIt"></i>
+                <!-- Pause Icon -->
+              </button>
+              <button class="button btn-lg" id="skipFw">
+                <i class="fas fa-step-forward"></i>
+                <!-- Skip Forward Icon -->
+              </button>
+              <button class="button button--toggle btn-lg" id="repeatBtn">
+                <i class="fas fa-sync-alt"></i>
+                <!-- Repeat Icon -->
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="box4">
+          <div class="btop bbom dotwrap">
+            <span class="dot left dotA"></span>
+            <span class="dot right"></span>
+            <span class="dot leftBot"></span>
+            <span class="dot rightBot dotA"></span>
+            <div class="first">
+              <span>section 03</span>
+              <p>My Favorite YouTube Videos</p>
+            </div>
+          </div>
+          <iframe
+            width="100%"
+            height="auto"
+            src="https://www.youtube.com/embed/5KqqBMwobi4"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+          <p>
+            【설중 캠프】 폭설에 묻히는 비밀 기지! 장작 스토브로 만드는 키리
+            탄포 냄비와 일본 술을 먹는다! Relaxing nature sounds ASMR
+          </p>
+        </div>
       </footer>
       <!-- //footter -->
     </div>
@@ -155,7 +229,113 @@
 
       window.onload = createSparkles;
     </script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
     <script>
+      let current = 0;
+      let sound = [];
+      let isInitialized = false;
+
+      function initializeSounds() {
+        sound[0] = new Howl({
+          src: ["http://asilencebroken.net/sounds/06 Traces of a Monster.mp3"],
+          preload: false,
+          html5: true,
+          onplay: function () {
+            document.getElementById("info").innerHTML =
+              "Asilence Broken - Traces of a Monster";
+          },
+          onend: function () {
+            nextSong();
+          },
+        });
+
+        sound[1] = new Howl({
+          src: [
+            "http://asilencebroken.net/sounds/08%20Left%20Me%204%20Dead.mp3",
+          ],
+          preload: false,
+          html5: true,
+          onplay: function () {
+            document.getElementById("info").innerHTML =
+              "Asilence Broken - Left Me 4 Dead";
+          },
+          onend: function () {
+            nextSong();
+          },
+        });
+
+        sound[2] = new Howl({
+          src: ["http://asilencebroken.net/sounds/07%20Needed%20Questions.mp3"],
+          preload: false,
+          html5: true,
+          onplay: function () {
+            document.getElementById("info").innerHTML =
+              "Asilence Broken - Needed Questions";
+          },
+          onend: function () {
+            nextSong();
+          },
+        });
+
+        isInitialized = true;
+      }
+
+      function nextSong() {
+        current++;
+        if (current >= sound.length) {
+          current = 0;
+        }
+        sound[current].play();
+        updatePlayPauseButton();
+      }
+
+      function lastSong() {
+        current--;
+        if (current < 0) {
+          current = sound.length - 1;
+        }
+        sound[current].play();
+        updatePlayPauseButton();
+      }
+
+      function updatePlayPauseButton() {
+        let playBtn = document.getElementById("playIt");
+        let pauseIcon = document.getElementById("pauseIt");
+        if (sound[current].playing()) {
+          playBtn.classList.add("is-active");
+          pauseIcon.style.display = "inline";
+        } else {
+          playBtn.classList.remove("is-active");
+          pauseIcon.style.display = "none";
+        }
+      }
+
+      document.getElementById("skipBw").addEventListener("click", function () {
+        if (isInitialized) {
+          sound[current].stop();
+          lastSong();
+        }
+      });
+
+      document.getElementById("playIt").addEventListener("click", function () {
+        if (!isInitialized) {
+          initializeSounds();
+        }
+        if (sound[current].playing()) {
+          sound[current].pause();
+        } else {
+          sound[current].play();
+        }
+        updatePlayPauseButton();
+      });
+
+      document.getElementById("skipFw").addEventListener("click", function () {
+        if (isInitialized) {
+          sound[current].stop();
+          nextSong();
+        }
+      });
+
       // 시간을 두 자리 수로 변환
       function pad(value) {
         return value.toString().padStart(2, "0");
@@ -204,22 +384,22 @@
         const firstDay = new Date(year, month, 1).getDay();
 
         let calendarHTML = `
-        <table>
-            <thead>
-                <tr>
-                    <th colspan="7">${monthNames[month]} ${year}</th>
-                </tr>
-                <tr>
-                    <th>Sun</th>
-                    <th>Mon</th>
-                    <th>Tue</th>
-                    <th>Wed</th>
-                    <th>Thu</th>
-                    <th>Fri</th>
-                    <th>Sat</th>
-                </tr>
-            </thead>
-            <tbody>
+      <table>
+          <thead>
+              <tr>
+                  <th colspan="7">${monthNames[month]} ${year}</th>
+              </tr>
+              <tr>
+                  <th>Sun</th>
+                  <th>Mon</th>
+                  <th>Tue</th>
+                  <th>Wed</th>
+                  <th>Thu</th>
+                  <th>Fri</th>
+                  <th>Sat</th>
+              </tr>
+          </thead>
+          <tbody>
     `;
 
         let day = 1;
@@ -243,8 +423,8 @@
         }
 
         calendarHTML += `
-            </tbody>
-        </table>
+          </tbody>
+      </table>
     `;
 
         const calendarElement = document.querySelector(".calendar");
