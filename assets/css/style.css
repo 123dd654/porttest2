@@ -512,6 +512,7 @@ a {
   color: #ccc;
   font-size: 12px;
   padding: 4px;
+  text-align: center;
 }
 
 .dot.left {

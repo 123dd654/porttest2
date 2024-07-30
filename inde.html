@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="assets/css/reset.css" />
     <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="icon" href="data:," />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
@@ -196,39 +197,16 @@
           <iframe
             width="100%"
             height="auto"
-            src="https://www.youtube.com/embed/5KqqBMwobi4"
+            src="https://www.youtube.com/embed/i93Z7zljQ7I"
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
           ></iframe>
-          <p>
-            【설중 캠프】 폭설에 묻히는 비밀 기지! 장작 스토브로 만드는 키리
-            탄포 냄비와 일본 술을 먹는다! Relaxing nature sounds ASMR
-          </p>
+          <p>Title : Universe Size Comparison 3D</p>
         </div>
       </footer>
       <!-- //footter -->
     </div>
-
-    <!-- <script>
-      function createSparkles() {
-        const pattern = document.getElementById("pattern");
-        const sparkleSize = 20; // 스파클 간격 (px)
-        const width = window.innerWidth;
-        const height = window.innerHeight;
-        const numColumns = Math.floor(width / sparkleSize);
-        const numRows = Math.floor(height / sparkleSize);
-        const totalSparkles = numColumns * numRows;
-
-        for (let i = 0; i < totalSparkles; i++) {
-          const sparkle = document.createElement("div");
-          sparkle.className = "sparkle";
-          pattern.appendChild(sparkle);
-        }
-      }
-
-      window.onload = createSparkles;
-    </script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
     <script>
       let current = 0;
@@ -335,6 +313,20 @@
           nextSong();
         }
       });
+
+      // Shuffle 버튼 활성화/비활성화
+      document
+        .getElementById("shuffleBtn")
+        .addEventListener("click", function () {
+          this.classList.toggle("active");
+        });
+
+      // Repeat 버튼 활성화/비활성화
+      document
+        .getElementById("repeatBtn")
+        .addEventListener("click", function () {
+          this.classList.toggle("active");
+        });
 
       // 시간을 두 자리 수로 변환
       function pad(value) {
