@@ -318,7 +318,7 @@ body {
 .player {
   width: 98%;
   white-space: nowrap;
-  padding: 24px;
+  padding: 18px;
   border: 1px solid black;
   box-shadow: hsla(0, 0%, 32%, 1) 0 0px 0px 1px;
   margin: 10px auto;
@@ -462,6 +462,23 @@ a {
   color: #8fa0c0;
 }
 
+.playlist {
+  margin-top: 10px;
+  width: 200px;
+  overflow: hidden;
+  p {
+    color: #777777;
+    padding: 4px 0px;
+    font-size: 12px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #4a4a4abb;
+      color: #ccc;
+    }
+  }
+}
+
 @keyframes dot {
   0% {
     opacity: 1;
@@ -513,6 +530,11 @@ a {
   font-size: 12px;
   padding: 4px;
   text-align: center;
+
+  &:nth-child(4) {
+    color: #777777;
+    font-size: 10px;
+  }
 }
 
 .dot.left {
