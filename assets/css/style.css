@@ -70,7 +70,6 @@ body {
 #contents .view {
   width: 100%;
   height: 100vh;
-  padding: 20px;
   position: relative;
   z-index: 1;
   overflow-y: scroll;
@@ -78,30 +77,49 @@ body {
   -ms-overflow-style: none; /* Internet Explorer 10+ */
 }
 
+#contents .view .view_info {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* background-color: #5a5a5a; */
+}
+
 #contents .nav {
   position: absolute;
-  left: 0;
-  bottom: 0;
+  /* left: 0; */
+  bottom: 20px;
   z-index: 100;
   width: 100%;
-  height: 10vh;
+  height: 20vh;
   background-color: #00000067;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(40px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#contents .nav ul {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  justify-content: center;
+}
+#contents .nav li {
+  font-size: 40px;
+  cursor: pointer;
 }
 
 .music-veiw {
   position: absolute;
   left: 0;
   top: 0;
-  /* background-color: #00000012; */
-  /* backdrop-filter: blur(10px); */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 .music-veiw p {
-  /* padding: 20px; */
   font-family: "IropkeBatang";
   color: #fff;
   width: 80%;
@@ -110,7 +128,6 @@ body {
 
 .music-veiw .img1 {
   width: 80%;
-  /* height: 80%; */
   margin-top: 30px;
 }
 
@@ -119,7 +136,6 @@ body {
 }
 
 #header .box1 h1 {
-  /* color: #fff; */
   text-transform: uppercase;
   text-align: center;
   font-size: 36px;
@@ -184,9 +200,6 @@ body {
     color: #ccc;
     font-size: 16px;
     font-family: "AstroSpace", sans-serif;
-    /* text-align: left;
-    margin-left: 4px;
-    margin-top: 2px; */
     text-align: center;
   }
 
@@ -260,8 +273,8 @@ body {
 .leftNamePicture .left .img {
   background-image: url(../img/seo.png);
   background-size: cover;
-  width: 90%;
-  height: 90%;
+  width: 100%;
+  height: 100%;
 }
 
 .time {
@@ -603,3 +616,232 @@ a {
 .mt10 {
   margin-top: 10px;
 }
+.lineWrap {
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.05);
+  width: 100px;
+  height: 100px;
+  color: rgba(255, 255, 255, 0.2);
+  font-family: "Dosis";
+  line-height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.lineWrap:hover {
+  background-color: rgba(255, 255, 255, 0.11);
+  color: #8fa0c0;
+}
+.lineWrap .line {
+  position: absolute;
+}
+.lineWrap .line.topLeft {
+  left: 0;
+  top: 6px;
+  width: 1px;
+  height: calc(100% - 12px);
+  background-color: rgba(255, 255, 255, 0.1);
+  position: absolute;
+}
+.lineWrap .line.topLeft::before {
+  content: "";
+  width: 3px;
+  height: 3px;
+  background-color: rgba(255, 255, 255, 0.1);
+  position: absolute;
+  left: 0;
+  top: -6px;
+}
+.lineWrap .line.topRight {
+  left: 6px;
+  top: 0;
+  width: calc(100% - 12px);
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.1);
+  position: absolute;
+}
+.lineWrap .line.topRight::before {
+  content: "";
+  width: 3px;
+  height: 3px;
+  background-color: rgba(255, 255, 255, 0.1);
+  position: absolute;
+  left: auto;
+  right: -6px;
+}
+.lineWrap .line.botLeft {
+  left: 6px;
+  top: auto;
+  bottom: 0px;
+  width: calc(100% - 12px);
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.1);
+  position: absolute;
+}
+.lineWrap .line.botLeft::before {
+  content: "";
+  width: 3px;
+  height: 3px;
+  background-color: rgba(255, 255, 255, 0.1);
+  position: absolute;
+  left: -6px;
+  bottom: 0px;
+}
+.lineWrap .line.botRight {
+  right: 0;
+  top: 6px;
+  width: 1px;
+  height: calc(100% - 12px);
+  background-color: rgba(255, 255, 255, 0.1);
+  position: absolute;
+}
+.lineWrap .line.botRight::before {
+  content: "";
+  width: 3px;
+  height: 3px;
+  background-color: rgba(255, 255, 255, 0.1);
+  position: absolute;
+  right: 0;
+  bottom: -6px;
+}
+
+#musicBox {
+  position: relative;
+  height: 200px;
+  aspect-ratio: 1;
+  perspective: 1000px;
+  margin-top: 30px;
+  margin-left: 40px;
+}
+#musicBox .list {
+  color: #fff;
+  font-size: 10px;
+  position: absolute;
+  left: -20px;
+  top: 20px;
+}
+#musicBox .list li.active {
+  background-color: #fff;
+  color: #000;
+  border-radius: 2px;
+}
+#wrapper {
+  transform: rotateX(-5deg) rotateY(10deg);
+}
+#modal {
+  background: var(--red);
+  height: 200px;
+  aspect-ratio: 1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 100%,
+    6% 100%,
+    0 93%,
+    0 68%,
+    0 65%,
+    5% 60%,
+    5% 31%,
+    0 24%
+  );
+}
+#textInner {
+  position: absolute;
+  top: 4px;
+  color: var(--red);
+  left: 8px;
+  z-index: 20;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+#textOuter {
+  color: var(--red);
+  float: right;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+#blurbContainer {
+  position: absolute;
+  top: -18px;
+  display: flex;
+  color: var(--red);
+  justify-content: flex-end;
+  font-size: 0.5rem;
+  min-width: 200px;
+  right: -23px;
+  gap: 7px;
+  width: 500px;
+}
+#blurbContainer :last-child {
+  width: 16px;
+  overflow-wrap: break-word;
+  font-size: 0.4rem;
+}
+#blurbContainer :first-child {
+  white-space: nowrap;
+}
+#extra {
+  height: 5px;
+  width: 40px;
+  background: var(--red);
+  position: absolute;
+  right: 0;
+  margin-top: -1px;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 37% 100%);
+}
+#modal:after {
+  width: 97%;
+  height: 8px;
+  background: var(--red);
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  content: "";
+}
+#inner {
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 100%,
+    6% 100%,
+    0 93%,
+    0 68%,
+    0 65%,
+    5% 60%,
+    5% 31%,
+    0 24%
+  );
+  height: 99%;
+  width: 98%;
+  background: #000;
+  background: url("https://cdn-l-cyberpunk.cdprojektred.com/gallery/1080p/Cyberpunk2077-A_beautiful_beast-RGB-en.jpg")
+    center/ cover;
+}
+#inner .play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #fff;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+}
+#inner .play svg {
+  width: 18px;
+  margin-left: 4px;
+  margin-top: 3px;
+}
+svg {
+  width: 100%;
+}
+
+/* main */
