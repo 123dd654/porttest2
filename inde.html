@@ -53,7 +53,9 @@
               <div class="img"></div>
             </div>
             <div class="anitext right w60 h100">
-              <div class="control"></div>
+              <div class="control">
+                <span></span>
+              </div>
             </div>
           </div>
         </div>
@@ -525,9 +527,9 @@
         W = (C.width = window.innerWidth),
         H = (C.height = window.innerHeight);
 
-      const str =
+      const matrixChars =
           "А+Б0В-Г1Д=Е2Ё Ж3З И4Й К5Л М6Н О7П Р8С Т9У Ф!Х Ц?Ч Ш.ЩЪ,Ы Ь:ЭЮ;Я",
-        matrix = str.split("");
+        matrix = matrixChars.split("");
 
       let font = 11,
         col = W / font,
@@ -538,7 +540,7 @@
       function draw() {
         $.fillStyle = "rgba(0,0,0,.05)";
         $.fillRect(0, 0, W, H);
-        $.fillStyle = "#0f0";
+        $.fillStyle = "blue";
         $.font = font + "px system-ui";
         for (let i = 0; i < arr.length; i++) {
           let txt = matrix[Math.floor(Math.random() * matrix.length)];
@@ -551,6 +553,65 @@
       setInterval(draw, 123);
 
       window.addEventListener("resize", () => location.reload());
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const terminal = document.querySelector(".anitext");
+        const body = document.getElementsByTagName("body")[0];
+        let newLine = document.createElement("p");
+        const skipBtn = document.querySelector(".control span");
+
+        if (!skipBtn) {
+          console.error("skipBtn 요소가 존재하지 않습니다.");
+          return;
+        }
+
+        terminal.appendChild(newLine);
+
+        let text = `"Jack menembakkan winchester 1873 hasil peninggalan ayah 1873 hasil"`;
+
+        sayItSlowly("Emily", "seoyun", text);
+
+        function sayItSlowly(user, place, text) {
+          let username = `${user}@${place}:`;
+          let arr = `${username}${text}`.split("");
+          let counter = 0;
+          let isPaused = false;
+
+          let interval = setInterval(function () {
+            if (!isPaused) {
+              printChar(arr[counter]);
+              counter++;
+            }
+
+            if (counter === arr.length) {
+              clearInterval(interval);
+              skipBtn.textContent = ".";
+              skipBtn.classList.remove("hidden");
+            }
+
+            if (terminal.clientHeight > body.clientHeight / 2) {
+              if (arr[counter] === " ") {
+                isPaused = true;
+                skipBtn.classList.remove("hidden");
+
+                skipBtn.addEventListener("click", function () {
+                  newLine.textContent = `${username}`;
+                  skipBtn.classList.add("hidden");
+                  isPaused = false;
+                });
+              }
+            }
+          }, 50);
+        }
+
+        function pause() {
+          clearInterval(interval);
+        }
+
+        function printChar(char) {
+          newLine.textContent += char;
+        }
+      });
     </script>
   </body>
 </html>

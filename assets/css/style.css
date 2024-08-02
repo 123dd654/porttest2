@@ -49,6 +49,25 @@ body {
   height: 100vh;
 }
 
+.anitext {
+  padding: 10px;
+  color: #ffffffaf;
+  font-size: 12px;
+}
+
+.control {
+  /* height: 10%; */
+  /* background-color: red; */
+  display: flex;
+  justify-content: flex-end;
+  font-family: "DM Mono";
+  overflow: hidden;
+}
+
+.control span {
+  cursor: pointer;
+}
+
 #footer {
   position: fixed;
   right: 0;
@@ -705,7 +724,7 @@ a {
   bottom: -6px;
 }
 
-#musicBox {
+/* #musicBox {
   position: relative;
   height: 200px;
   aspect-ratio: 1;
@@ -842,6 +861,6 @@ a {
 }
 svg {
   width: 100%;
-}
+} */
 
 /* main */
